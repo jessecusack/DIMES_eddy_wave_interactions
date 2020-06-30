@@ -1,5 +1,23 @@
 # The data directory contains large files not suitable for git
-data
+data/ADCP.mat
+data/C_alt.mat
+data/C_altw.mat
+data/C_raw.mat
+data/NE_raw.mat
+data/NW_raw.mat
+data/SE_raw.mat
+data/SNR_div.npy
+data/SNR_dudz.npy
+data/SNR_dvdz.npy
+data/SNR_nstrain.npy
+data/SNR_sstrain.npy
+data/SW_raw.mat
+data/VMP.mat
+data/topo_19.1.img
+data/virtual_mooring_interpolated.mat
+data/virtual_mooring_interpolated_windowed.mat
+data/virtual_mooring_raw.mat
+data/zmax_pfit.npy
 
 # Notebook clutter
 .ipynb_checkpoints
