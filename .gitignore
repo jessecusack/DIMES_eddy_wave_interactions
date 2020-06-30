@@ -1,0 +1,12 @@
+# The data directory contains large files not suitable for git
+data
+
+# Notebook clutter
+.ipynb_checkpoints
+
+# Python clutter
+*.pyc
+__pycache__
+
+# OSX clutter
+.DS_Store
