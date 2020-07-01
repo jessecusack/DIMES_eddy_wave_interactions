@@ -1,4 +1,6 @@
-# Observed eddy internal wave interactions in the Southern Ocean
+# Observed eddy-internal wave interactions in the Southern Ocean
+
+[![DOI](https://zenodo.org/badge/275956774.svg)](https://zenodo.org/badge/latestdoi/275956774)
 
 Jesse M Cusack, J. James Alexander Brearley, Alberto C. Naveira Garabato, David A. Smeed, Kurt L. Polzin, Nick Velzeboer, Callum J. Shakespeare
 
