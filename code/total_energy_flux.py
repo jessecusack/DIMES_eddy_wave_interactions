@@ -216,8 +216,8 @@ zvmp = VMP.z[use, 0]
 epsam = np.nanmean(VMP.eps[use, :], axis=1)
 epsgm = cfs.nangmean(VMP.eps[use, :], axis=1)
 
-F_total = m.F_vert.mean(axis=0) + m.F_horiz.mean(axis=0)
-F_total_eff = m.F_vert_alt.mean(axis=0) + m.F_horiz.mean(axis=0)
+F_total = m.F_total.mean(axis=0)
+F_total_eff = (m.F_vert_alt + m.F_horiz).mean(axis=0)
 
 # Cumulative integration.
 F_int = -g0 * np.trapz(F_total, z)
@@ -231,14 +231,15 @@ epsg_int = -g0 * np.trapz(epsgm, zvmp)
 # Error on integrals.
 Fhierr = 1.96 * g0 * utils.etrapz(utils.emean(m.errF_horiz, axis=0), z)
 Fvierr = 1.96 * g0 * utils.etrapz(utils.emean(m.errF_vert, axis=0), z)
+Ftierr = 1.96 * g0 * utils.etrapz(utils.emean(m.errF_total, axis=0), z)
 
 U = ((cc.u[:, -1] ** 2 + cc.v[:, -1] ** 2) ** 0.5).mean()
-BBL = 2 * Cd * g0 * U ** 3
+BBL = Cd * g0 * U ** 3
 
-print("F_int = {:1.3e} W/m^2".format(F_int))
+print("F_int = {:1.3e} +/- {:1.3e} W/m^2".format(F_int, Ftierr))
 print("F_eff_int = {:1.3e} W/m^2".format(F_eff_int))
-print("F_horiz_int = {:1.3e} W/m^2".format(F_horiz_int))
-print("F_vert_int = {:1.3e} W/m^2".format(F_vert_int))
+print("F_horiz_int = {:1.3e} +/- {:1.3e} W/m^2".format(F_horiz_int, Fhierr))
+print("F_vert_int = {:1.3e} +/- {:1.3e} W/m^2".format(F_vert_int, Fvierr))
 print("F_vert_eff_int = {:1.3e} W/m^2".format(F_vert_eff_int))
 print("epsa_int = {:1.3e} W/m^2".format(epsa_int))
 print("epsg_int = {:1.3e} W/m^2".format(epsg_int))
@@ -295,7 +296,7 @@ ax.annotate("Dissipative processes", (4, 5.8), **text_kwargs)
 
 # Annotate horizontal and vertical
 
-ax.set_ylabel("Energy flux (mW m$^{-2}$)")
+ax.set_ylabel("Integrated energy transfer (mW m$^{-2}$)")
 ax.set_xticks([0, 1, 2, 3.5, 4.5])
 ax.set_xticklabels([r"$F_h$", r"$F_v$", "LW", "BBL", r"$\epsilon$"])
 
