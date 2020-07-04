@@ -214,7 +214,7 @@ use = (VMP.z[:, 0] > zmin) & (VMP.z[:, 0] < zmax)
 
 zvmp = VMP.z[use, 0]
 epsam = np.nanmean(VMP.eps[use, :], axis=1)
-epsgm = cfs.nangmean(VMP.eps[use, :], axis=1)
+# epsgm = cfs.nangmean(VMP.eps[use, :], axis=1)
 
 F_total = m.F_total.mean(axis=0)
 F_total_eff = (m.F_vert_alt + m.F_horiz).mean(axis=0)
@@ -226,7 +226,7 @@ F_horiz_int = -g0 * np.trapz(m.F_horiz.mean(axis=0), z)
 F_vert_int = -g0 * np.trapz(m.F_vert.mean(axis=0), z)
 F_vert_eff_int = -g0 * np.trapz(m.F_vert_alt.mean(axis=0), z)
 epsa_int = -g0 * np.trapz(epsam, zvmp)
-epsg_int = -g0 * np.trapz(epsgm, zvmp)
+# # epsg_int = -g0 * np.trapz(epsgm, zvmp)
 
 # Error on integrals.
 Fhierr = 1.96 * g0 * utils.etrapz(utils.emean(m.errF_horiz, axis=0), z)
@@ -242,7 +242,7 @@ print("F_horiz_int = {:1.3e} +/- {:1.3e} W/m^2".format(F_horiz_int, Fhierr))
 print("F_vert_int = {:1.3e} +/- {:1.3e} W/m^2".format(F_vert_int, Fvierr))
 print("F_vert_eff_int = {:1.3e} W/m^2".format(F_vert_eff_int))
 print("epsa_int = {:1.3e} W/m^2".format(epsa_int))
-print("epsg_int = {:1.3e} W/m^2".format(epsg_int))
+# print("epsg_int = {:1.3e} W/m^2".format(epsg_int))
 # print('BBL_lo = {:1.3e} W/m^2'.format(BBL_lo))
 # print('BBL_hi = {:1.3e} W/m^2'.format(BBL_hi))
 print("BBL = {:1.3e} W/m^2".format(BBL))
@@ -267,8 +267,8 @@ ax.bar(2, 0.86, width, color="C2")  # Anual median
 
 ax.bar(3.5, c * BBL, width, color="C3")
 
-ax.bar(4.5, c * epsa_int, width, color="C4", alpha=0.7)
-ax.bar(4.5, c * epsg_int, width, color="C4")
+ax.bar(4.5, c * epsa_int, width, color="C4")  #, alpha=0.7)
+# ax.bar(4.5, c * epsg_int, width, color="C4")
 
 text_kwargs = {"ha": "center", "va": "center"}
 
@@ -283,13 +283,13 @@ ax.annotate("mean", (2, 0.86 + 0.5 * (5.3 - 0.86)), **text_kwargs, alpha=0.7)
 ax.annotate("median", (2, 0.86 / 2), **text_kwargs)
 # ax.annotate('eddies', (3.5, c*BBL_lo/2), **text_kwargs)
 # ax.annotate('waves', (3.5, c*(BBL_lo + 0.5*BBL_hi)), **text_kwargs, alpha=0.7)
-ax.annotate("geometric", (4.5, c * epsg_int / 2), **text_kwargs)
-ax.annotate(
-    "arithmetic",
-    (4.5, c * (epsg_int + 0.5 * (epsa_int - epsg_int))),
-    **text_kwargs,
-    alpha=0.7
-)
+# ax.annotate("geometric", (4.5, c * epsg_int / 2), **text_kwargs)
+# ax.annotate(
+#     "arithmetic",
+#     (4.5, c * (epsg_int + 0.5 * (epsa_int - epsg_int))),
+#     **text_kwargs,
+#     alpha=0.7
+# )
 
 ax.annotate("Wave-eddy interaction", (1, 5.8), **text_kwargs)
 ax.annotate("Dissipative processes", (4, 5.8), **text_kwargs)
@@ -324,3 +324,5 @@ for lev in range(ca.N_levels):
     print("mean depth {:1.0f} m".format(-ca.z[:, lev].mean()))
     print("shear strain rate std {:1.1e} s-1".format(ca.sstrain[:, lev].std()))
     print("vertial shear std {:1.1e} s-1".format(ca.dudz[:, lev].std()))
+
+# %%
